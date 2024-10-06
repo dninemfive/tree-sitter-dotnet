@@ -2,8 +2,7 @@
 public readonly struct Node
 {
     internal readonly int context0, context1, context2, context3;
-    internal readonly long id;
-    internal readonly nint tree;
+    internal readonly nint id, tree;
     public Node() { }
     public Node this[int child]
         => TreeSitter.NodeChild(this, child);
