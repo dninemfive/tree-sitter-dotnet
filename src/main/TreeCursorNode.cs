@@ -1,12 +1,15 @@
 ﻿using System.Runtime.InteropServices.Marshalling;
 
 namespace d9.TreeSitter;
-public readonly struct TreeCursorNode(string @type, string @name, int @startByte, int @endByte)
+public readonly struct TreeCursorNode
 {
-    internal readonly string type = @type, name = @name;
-    internal readonly int startByte = @startByte, endByte = @endByte;
-    public string Type => type;
-    public string Name => name;
-    public int StartByte => startByte;
-    public int EndByte => endByte;
+    public readonly string Type, Name;
+    public readonly int StartByte, EndByte;
+    public TreeCursorNode(string type, string name, int startByte, int endByte)
+    {
+        Type = type;
+        Name = name;
+        StartByte = startByte;
+        EndByte = endByte;
+    }
 }

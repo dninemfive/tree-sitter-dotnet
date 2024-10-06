@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 
 namespace d9.TreeSitter;
+// TODO: is BStr the correct string marshal type?
+// see https://learn.microsoft.com/en-us/dotnet/framework/interop/default-marshalling-for-strings and TreeSitter source
 internal static partial class TreeSitter
 {
     private const string TREESITTER_DLL = "todo";
@@ -16,6 +18,7 @@ internal static partial class TreeSitter
 
     internal static bool NodeHasError(Node node) => nodeHasError(node);
     [LibraryImport(TREESITTER_DLL)]
+    [return:MarshalAs(UnmanagedType.Bool)]
     private static partial bool nodeHasError(Node node);
 
     internal static int NodeEndByte(Node node) => nodeEndByte(node);
@@ -28,10 +31,12 @@ internal static partial class TreeSitter
 
     internal static string NodeString(Node node) => nodestring(node);
     [LibraryImport(TREESITTER_DLL)]
+    [return: MarshalAs(UnmanagedType.BStr)]
     private static partial string nodestring(Node node);
 
     internal static string NodeType(Node node) => nodeType(node);
     [LibraryImport(TREESITTER_DLL)]
+    [return: MarshalAs(UnmanagedType.BStr)]
     private static partial string nodeType(Node node);
 
     internal static nint ParserNew() => parserNew();
@@ -60,6 +65,7 @@ internal static partial class TreeSitter
 
     internal static string TreeCursorCurrentFieldName(nint cursor) => treeCursorCurrentFieldName(cursor);
     [LibraryImport(TREESITTER_DLL)]
+    [return: MarshalAs(UnmanagedType.BStr)]
     private static partial string treeCursorCurrentFieldName(nint cursor);
 
     internal static Node TreeCursorCurrentNode(nint cursor) => treeCursorCurrentNode(cursor);
@@ -72,14 +78,17 @@ internal static partial class TreeSitter
 
     internal static bool TreeCursorGotoFirstChild(nint cursor) => treeCursorGotoFirstChild(cursor);
     [LibraryImport(TREESITTER_DLL)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool treeCursorGotoFirstChild(nint cursor);
 
     internal static bool TreeCursorGotoNextSibling(nint cursor) => treeCursorGotoNextSibling(cursor);
     [LibraryImport(TREESITTER_DLL)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool treeCursorGotoNextSibling(nint cursor);
 
     internal static bool TreeCursorGotoParent(nint cursor) => treeCursorGotoParent(cursor);
     [LibraryImport(TREESITTER_DLL)]
+    [return:MarshalAs(UnmanagedType.Bool)]
     private static partial bool treeCursorGotoParent(nint cursor);
 
     internal static void TreeDelete(nint tree) => treeDelete(tree);
